@@ -10,6 +10,4 @@ test 1
 # Inside of the sun
 # That had been sucked into a black hole 
 # But then the dasoidviruæoew9+pioaliens attacked
-# However they only wanted to pet the dogs
-hoolor
-sdoeo
+# However they only wanted to pet the dog
