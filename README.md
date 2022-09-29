@@ -1,3 +1,3 @@
 # tekst
 test 1
-# rest asure
+# rest assured and believe in the heart of the cards
