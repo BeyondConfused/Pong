@@ -1,1 +1,29 @@
+Create pong
+  - Spilleplade
+  - Spiller
+  - Bold
+  - Score
 
+
+Spillerklasse
+  - Move
+  - Hitbox
+  - Sprite
+
+
+Boldklasse
+  - Move
+  - Retning
+  - Hitbox
+  - Sprite
+ 
+ 
+ Gamecontroller
+  - Score
+    - Display
+  - Spilleplade
+  - Ramme
+  - Reset
+
+
+ 
