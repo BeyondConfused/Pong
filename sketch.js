@@ -1,7 +1,23 @@
+var cnv;
+
 function setup() {
-  createCanvas(400, 400);
+  cnv = createCanvas(750, window.innerHeight);
+  centerCanvas();
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  cnv.position(x, y);
+}
+
+function centerCanvas() {
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  cnv.position(x, y)
+}
+
+function windowResized() {
+  centerCanvas();
 }
 
 function draw() {
-  background(220);
+  background(0);
 }
