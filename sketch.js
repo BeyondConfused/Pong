@@ -1,10 +1,9 @@
 
 var cnv;
 let players = []
-let ball;
+let ball = []
 let gameController;
-
-
+let ballMax = 100000
 
 
 function setup() {
@@ -21,7 +20,6 @@ function setup() {
 
 
 
-  ball = new Ball(width / 2, height / 2, 15, -3, -3);
 
 }
 
@@ -35,12 +33,15 @@ function windowResized() {
   centerCanvas();
 }
 
+
 function draw() {
   background(0);
-
-  ball.display();
-  ball.move();
-  ball.bounce();
+  for (let i = 0; i < ball.length; i++) {
+  ball[i].display();
+  ball[i].move();
+  ball[i].bounce();
+  }
+ 
 }
 
 
@@ -73,7 +74,10 @@ class GC {
      players.push(new Player(i,20,30)) 
     }
 
-
+    for (let i = 1; i < 1+ballMax; i++) {
+      ball.push(new Ball(width / 2, height / 2, 15, random(-3,3),random( 3,-3))); 
+      console.log("Ball #"+i,"has spawned")
+     }
   }
 
 }
