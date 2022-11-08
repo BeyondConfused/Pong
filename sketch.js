@@ -4,8 +4,7 @@ let players = []
 let ball;
 let gameController;
 
-let cnv;
-let ball;
+
 
 
 function setup() {
@@ -39,7 +38,9 @@ function windowResized() {
 function draw() {
   background(0);
 
-
+  ball.display();
+  ball.move();
+  ball.bounce();
 }
 
 
@@ -74,9 +75,7 @@ class GC {
 
 
   }
-  ball.display();
-  ball.move();
-  ball.bounce();
+
 }
 
 class Ball{
