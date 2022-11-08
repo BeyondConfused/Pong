@@ -1,0 +1,109 @@
+//definer variabler for cirkel
+let circlePos; //position
+let circleFart; //bevægelse
+let circleR = 25; //radius
+let fart = 3; //fart
+
+//definer variabler for skå plan
+let kant1; //venstre kant
+let kant2; //højre kant
+
+
+function setup() {
+  //lav tegneflade og centrer i midten af vindue
+  cnv = createCanvas(710, 500);
+  centerCanvas();
+  var xCanvas = (windowWidth - width) / 2;
+  var yCanvas = (windowHeight - height) / 2;
+  cnv.position(xCanvas, yCanvas);
+
+  //bestem punkter ved brug af vektor for skå plan
+  kant1 = new p5.Vector(0, height - 150);
+  kant2 = new p5.Vector(500, height);
+
+  //bestem startposition for cirkel med en vektor 
+  circlePos = new p5.Vector(100, 100);
+  //bestem fart med vektor
+  circleFart = new p5.Vector(0, fart);
+}
+
+function centerCanvas() {
+  //centrer tegneflade i midten af vindue
+  var xCanvas = (windowWidth - width) / 2;
+  var yCanvas = (windowHeight - height) / 2;
+  cnv.position(xCanvas, yCanvas)
+}
+
+function windowResized() {
+  //centrer igen, ved ændring af vinduestørrelse
+  centerCanvas();
+}
+
+function draw() {
+  //tegn baggrund
+  background(220);
+
+  //tegn skrå kant
+    stroke(0);
+    strokeWeight(5);
+  line(kant1.x, kant1.y, kant2.x, kant2.y);
+  
+  //tegn cirkel objekt
+  noStroke();
+  fill(20);
+  ellipse(circlePos.x, circlePos.y, circleR * 2, circleR * 2);
+  //addition af cirkelposition vektor og cirkelfart vektor
+  circlePos.add(circleFart);
+  
+  
+  let incidence = p5.Vector.mult(circleFart, -1); //x * -1 = -x, y * -1 = -y
+  incidence.normalize(); //sætter længden af vektoren til 1 
+  
+
+  //udregning af den skrå kants tværvektor som en enhedsvektor
+  let kantDelta = p5.Vector.sub(kant2, kant1);
+  //sætter længden til 1
+  kantDelta.normalize();
+  //Sætter normal til at være tværvekter til den skrå kant
+  let normal = new p5.Vector(-kantDelta.y, kantDelta.x);
+  //prikprodukt af den skrå kant venstre punkt og kanttoppens normalvektor
+  let intercept = p5.Vector.dot(kant1, normal);
+  
+  //håntering af kolision med skrå kant
+  //tjekker om prikproduktet af normal og boldens position er større end intercept 
+  if (p5.Vector.dot(normal, circlePos) > intercept - circleR) {
+
+    //udregner prikproduktet af normalvektoren og incidence vektoren
+    let dot = incidence.dot(normal);
+
+    //sætter boldens beværgelse til reflektionsvektoren som udregnes ved: (R=2*N(N*L)-L)
+    //hvor R er reflektionvektoren, N er normalvektoren og L er incident vektoren
+    circleFart.set((2 * normal.x * dot - incidence.x), 2 * normal.y * dot - incidence.y);
+    circleFart.mult(fart);
+
+}
+
+KollisionMedVægge();
+print(circleFart, circlePos);
+}
+
+function KollisionMedVægge(){
+  if (circlePos.x > width - circleR) {
+    circlePos.x = width - circleR;
+    circleFart.x *= -1;
+  }
+  
+  if (circlePos.x < circleR) {
+    circlePos.x = circleR;
+    circleFart.x *= -1;
+  }
+  
+  if (circlePos.y < circleR) {
+    circlePos.y = circleR;
+    circleFart.y *= -1;
+  }
+  if (circlePos.y > height - circleR) {
+    circlePos.y = height - circleR;
+    circleFart.y *= -1;
+  }
+}
