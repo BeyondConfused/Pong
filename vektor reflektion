@@ -1,0 +1,84 @@
+let mover;
+
+let base1;
+let base2;
+
+function setup(){
+  createCanvas(700, 550);
+  
+  mover = new Mover(100, 100, 25, 3);
+
+  fill(128);
+  base1 = new p5.Vector(0, height - 150);
+  base2 = new p5.Vector(500, height);
+}
+
+function draw(){
+  fill(220);
+  noStroke();
+  rect(0, 0, width, height);
+
+  fill(120);
+  quad(base1.x, base1.y, base2.x, base2.y, base2.x, height, 0, height);
+
+  let baseDelta = p5.Vector.sub(base2, base1);
+  baseDelta.normalize();
+  let normal = createVector(-baseDelta.y, baseDelta.x);
+  let intercept = p5.Vector.dot(base1, normal);
+  
+  mover.display();
+  mover.move();
+
+  incidence = p5.Vector.mult(mover.circleFart, -1);
+  incidence.normalize();
+  
+  if (p5.Vector.dot(normal, mover.circlePos) > intercept){
+    let dot = incidence.dot(normal);
+
+    mover.circleFart.set(2 * normal.x * dot - incidence.x, 2 * normal.y * dot - incidence.y, 0);
+
+  }
+  
+  mover.checkKanter();
+}
+
+class Mover {
+  constructor(x, y, r, fart){
+    this.circlePos = new p5.Vector(x, y);
+    this.circleFart = new p5.Vector(0, fart);
+    this.r = r;
+    this.fart = fart;
+  }
+  
+  move(){
+    this.circlePos.add(this.circleFart);
+  }
+
+  display(){
+    noStroke();
+    fill(20);
+    ellipse(this.circlePos.x, this.circlePos.y, 2 * this.r, 2 * this.r);
+  }
+
+  checkKanter(){
+    if (this.circlePos.x > width - this.r) {
+      this.circlePos.x = width - this.r;
+      this.circleFart.x *= -1;
+    }
+    
+    if (this.circlePos.x < this.r) {
+      this.circlePos.x = this.r;
+      this.circleFart.x *= -1;
+    }
+    
+    if (this.circlePos.y < this.r) {
+      this.circlePos.y = this.r;
+      this.circleFart.y *= -1;
+  }
+
+  if (this.circlePos.y > height - this.r) {
+    this.circlePos.y = height - this.r;
+    this.circleFart.y *= -1;
+}
+}
+}
