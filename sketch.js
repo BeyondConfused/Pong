@@ -9,7 +9,7 @@ let ballMax = 1;
 
 function setup() {
   cnv = createCanvas(window.innerWidth / 1.5, window.innerHeight);
-  centerCanvas();
+  //centerCanvas();
 
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
@@ -56,10 +56,10 @@ function keyPressed(){
 }
 
 class Player {
-  constructor(name, height, width, x, y) {
+  constructor(name,width, height, x, y) {
     this.name = name;
-    this.height = height;
     this.width = width;
+    this.height = height;
     this.playerPos = new p5.Vector(x, y)
     console.log("Player", name + " spawned")
   }
@@ -70,8 +70,9 @@ class Player {
   }
   display(){
     fill(255);
+    noStroke();
     rectMode(CENTER)
-    rect(this.x, this.y, this.width, this.height);
+    rect(this.playerPos.x, this.playerPos.y, this.width, this.height);
   }
 }
 
@@ -81,13 +82,15 @@ class GC {
   }
   gameStart(){
     for (let i = 1; i < 3; i++) {
-     players.push(new Player(i, 20, 30,)) 
+     players.push(new Player(i, 20, 80, 0, 0)) 
     }
-    players[0].playerPos = 0 + players[0].width, height / 2;
-    players[1].playerPos = 0 + players[1].width, height / 2;
+    
+    players[0].playerPos.add(0 + players[0].width * 2, height / 2);
+    players[1].playerPos.add(width - players[1].width * 2, height / 2);
+
    
     for (let i = 1; i < 1+ballMax; i++) {
-      ball.push(new Ball(width / 2, height / 2, 15, random(-3,3),random( 3,-3))); 
+      ball.push(new Ball(width / 2, height / 2, 15, random([-4, 4]),random(-3, 3))); 
       console.log("Ball #"+i,"has spawned")
      }
 
