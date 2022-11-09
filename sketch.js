@@ -3,7 +3,7 @@ var cnv;
 let players = []
 let ball;
 let gameController;
-
+let ballMax = 1;
 
 
 
@@ -37,10 +37,17 @@ function windowResized() {
 
 function draw() {
   background(0);
+  for(let i = 0; i < ball.length; i++) {
+    ball[i].display();
+    ball[i].move();
+    ball[i].bounce();
+    }
 
-  ball.display();
-  ball.move();
-  ball.bounce();
+  for(let i = 0; i < players.length; i++) {
+      players[i].move();
+      players[i].display();
+    }
+
 }
 
 
@@ -49,18 +56,22 @@ function keyPressed(){
 }
 
 class Player {
-  constructor(name, height, width,x ,y) {
+  constructor(name, height, width, x, y) {
     this.name = name;
     this.height = height;
     this.width = width;
-    this.x = x;
-    this.y = y;
-    console.log("Player",name+" spawned")
+    this.playerPos = new p5.Vector(x, y)
+    console.log("Player", name + " spawned")
   }
   move(){
-    if(keyCode==32){
+    if(keyCode== 32){
       console.log("yo")
     }
+  }
+  display(){
+    fill(255);
+    rectMode(CENTER)
+    rect(this.x, this.y, this.width, this.height);
   }
 }
 
@@ -70,9 +81,15 @@ class GC {
   }
   gameStart(){
     for (let i = 1; i < 3; i++) {
-     players.push(new Player(i,20,30)) 
+     players.push(new Player(i, 20, 30,)) 
     }
-
+    players[0].playerPos = 0 + players[0].width, height / 2;
+    players[1].playerPos = 0 + players[1].width, height / 2;
+   
+    for (let i = 1; i < 1+ballMax; i++) {
+      ball.push(new Ball(width / 2, height / 2, 15, random(-3,3),random( 3,-3))); 
+      console.log("Ball #"+i,"has spawned")
+     }
 
   }
 
