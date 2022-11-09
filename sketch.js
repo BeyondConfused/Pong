@@ -1,7 +1,7 @@
 
 var cnv;
-let players = []
-let ball;
+let players = [];
+let ball = [];
 let gameController;
 let ballMax = 1;
 
@@ -21,7 +21,7 @@ function setup() {
 
 
 
-  ball = new Ball(width / 2, height / 2, 15, -3, -3);
+  
 
 }
 
