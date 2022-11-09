@@ -113,7 +113,7 @@ class GC {
       ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
       console.log("Ball #"+i,"has spawned")
      }
-
+     
   }
 
 }
