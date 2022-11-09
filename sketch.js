@@ -10,6 +10,8 @@ let ballMax = 1;
 function setup() {
   cnv = createCanvas(window.innerWidth / 1.5, window.innerHeight);
   //centerCanvas();
+  background(0);
+  
 
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
@@ -18,7 +20,7 @@ function setup() {
   gameController = new GC()
   gameController.gameStart()
 
-
+  noCursor()
 
 
   
@@ -47,7 +49,8 @@ function draw() {
       players[i].move();
       players[i].display();
     }
-
+  
+  
 }
 
 
