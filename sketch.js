@@ -59,18 +59,18 @@ function keyPressed(){
 }
 
 class Player {
-  constructor(name, width, height, x, y, u, n) {
+  constructor(name, width, height, x, y, o, n) {
     this.name = name;
     this.width = width;
     this.height = height;
     this.playerPos = new p5.Vector(x, y);
-    this.u = u;
+    this.o = o;
     this.n = n;
     console.log("Player", name + " spawned")
   }
   move(){
     if(this.playerPos.y >= 0 + this.height / 2){
-      if(keyIsDown(this.u)){
+      if(keyIsDown(this.o)){
         this.playerPos.add(0, -3);
         console.log(this.playerPos)
       }
@@ -103,10 +103,10 @@ class GC {
     players[0].playerPos.add(0 + players[0].width * 2, height / 2);
     players[1].playerPos.add(width - players[1].width * 2, height / 2);
     
-    players[1].u = 38;
+    players[1].o = 38;
     players[1].n = 40;
 
-    players[0].u = 87;
+    players[0].o = 87;
     players[0].n = 83;
    
     for (let i = 1; i < 1+ballMax; i++) {
