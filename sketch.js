@@ -71,14 +71,14 @@ class Player {
   move(){
     if(this.playerPos.y >= 0 + this.height / 2){
       if(keyIsDown(this.o)){
-        this.playerPos.add(0, -3);
+        this.playerPos.add(0, -5);
         console.log(this.playerPos)
       }
     }
     
     if(this.playerPos.y <= window.innerHeight - this.height / 2){
       if(keyIsDown(this.n)){
-        this.playerPos.add(0, 3);
+        this.playerPos.add(0, 5);
         console.log(this.playerPos)
       }
     }
@@ -112,7 +112,7 @@ class GC {
     players[0].n = 83;
    
     for (let i = 1; i < 1+ballMax; i++) {
-      ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
+      ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
       console.log("Ball #"+i,"has spawned")
      }
      
