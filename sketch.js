@@ -1,4 +1,3 @@
-
 var cnv;
 let players = [];
 let ball = [];
@@ -44,6 +43,7 @@ function draw() {
     ball[i].move();
     ball[i].bounce();
     }
+    gameController.collisionSpiller();
 
   for(let i = 0; i < players.length; i++) {
       players[i].move();
@@ -103,9 +103,11 @@ class GC {
     players[0].playerPos.add(0 + players[0].width * 2, height / 2);
     players[1].playerPos.add(width - players[1].width * 2, height / 2);
     
+    //Højre spiller
     players[1].o = 38;
     players[1].n = 40;
 
+    //Venstre spiller
     players[0].o = 87;
     players[0].n = 83;
    
@@ -116,6 +118,22 @@ class GC {
      
   }
 
+  
+  collisionSpiller(){
+    if(ball[0].ballPos.y <= players[0].playerPos.y + (players[0].height / 2) && ball[0].ballPos.y >= players[0].playerPos.y - (players[0].height / 2)) {
+    
+      if(ball[0].ballPos.x <= players[0].playerPos.x + players[0].width) {
+        ball[0].ballFart.x *= -1;
+      }
+    }
+  
+    if(ball[0].ballPos.y <= players[1].playerPos.y + (players[1].height / 2) && ball[0].ballPos.y >= players[1].playerPos.y - (players[1].height / 2)) { 
+      
+      if(ball[0].ballPos.x >= players[1].playerPos.x - players[1].width) {
+        ball[0].ballFart.x *= -1; 
+      }
+    }
+  }
 }
 
 class Ball{
