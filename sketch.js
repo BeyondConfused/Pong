@@ -4,6 +4,7 @@ let players = [];
 let ball = [];
 let gameController;
 let ballMax = 1;
+let ballPos;
 
 
 
@@ -19,7 +20,6 @@ function setup() {
 
   gameController = new GC()
   gameController.gameStart()
-
   noCursor()
 
 
@@ -43,14 +43,17 @@ function draw() {
     ball[i].display();
     ball[i].move();
     ball[i].bounce();
+    console.log(ball[i].ballPos.x) 
     }
 
   for(let i = 0; i < players.length; i++) {
       players[i].move();
       players[i].display();
     }
-  
-  
+    gameController.scoreSystem()
+   
+   
+    
 }
 
 
@@ -115,7 +118,19 @@ class GC {
      }
 
   }
-
+scoreSystem(){
+  for(let i = 0; i < ball.length; i++) {
+    if(ball[i].ballPos.x < 0-ball[i].r){
+      console.log("To the left!")
+      console.log(ball[i].ballPos.x)
+    }
+    if(ball[i].ballPos.x > width+ball[i].r){
+      console.log("To the right!")
+      console.log(ball[i].ballPos.x)
+    }
+    
+    }
+}
 }
 
 class Ball{
