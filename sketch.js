@@ -1,4 +1,5 @@
-
+let p1Score = 0
+let p2Score = 0
 var cnv;
 let players = [];
 let ball = [];
@@ -43,7 +44,7 @@ function draw() {
     ball[i].display();
     ball[i].move();
     ball[i].bounce();
-    console.log(ball[i].ballPos.x) 
+    
     }
 
   for(let i = 0; i < players.length; i++) {
@@ -51,7 +52,6 @@ function draw() {
       players[i].display();
     }
     gameController.scoreSystem()
-   
    
     
 }
@@ -119,17 +119,32 @@ class GC {
 
   }
 scoreSystem(){
+
+
+
   for(let i = 0; i < ball.length; i++) {
-    if(ball[i].ballPos.x < 0-ball[i].r){
-      console.log("To the left!")
-      console.log(ball[i].ballPos.x)
+    if(ball[i].ballPos.x < 0-ball[i].r*2){
+
+     // console.log("To the left!")
+      ball.splice(i-1,1)
+      p2Score = p2Score + 1
+      console.log("Left removed")
+      if(ball.length < ballMax){
+        ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
     }
-    if(ball[i].ballPos.x > width+ball[i].r){
-      console.log("To the right!")
-      console.log(ball[i].ballPos.x)
+
+    if(ball[i].ballPos.x > width+ball[i].r*2){
+      //console.log("To the right!")
+      ball.splice(i-1,1)
+      p1Score = p1Score + 1
+      console.log("Right gone")
+        if(ball.length < ballMax){
+    ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
     }
-    
-    }
+  
+}
+}
+//console.log("Player 1 score:",p1Score,"Player 2 score:",p2Score)
 }
 }
 
