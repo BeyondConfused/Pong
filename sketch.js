@@ -139,10 +139,16 @@ class GC {
         }
       } 
 
-     /* ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
-      console.log("Ball #"+i,"has spawned")*/
-     }
      
+     }
+     /*
+     console.log("Player 1: "+p1Score)
+     console.log("Player 2: "+p2Score)
+     */
+    textSize(60)
+    textStyle(BOLD)
+    text(p1Score,30,60)
+    text(p2Score,width-60,60)
   }
 
   
