@@ -19,13 +19,9 @@ function setup() {
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
 
-  gameController = new GC()
-  gameController.gameStart()
-  noCursor()
-
-
-  
-
+  gameController = new GC();
+  gameController.gameStart();
+  noCursor();
 }
 
 function centerCanvas() {
@@ -51,7 +47,7 @@ function draw() {
       players[i].move();
       players[i].display();
     }
-    gameController.scoreSystem()
+    gameController.scoreSystem();
    
     
 }
@@ -69,27 +65,27 @@ class Player {
     this.playerPos = new p5.Vector(x, y);
     this.o = o;
     this.n = n;
-    console.log("Player", name + " spawned")
+    console.log("Player ", name + " spawned")
   }
   move(){
     if(this.playerPos.y >= 0 + this.height / 2){
       if(keyIsDown(this.o)){
         this.playerPos.add(0, -3);
-        console.log(this.playerPos)
+        console.log(this.playerPos);
       }
     }
     
     if(this.playerPos.y <= window.innerHeight - this.height / 2){
       if(keyIsDown(this.n)){
         this.playerPos.add(0, 3);
-        console.log(this.playerPos)
+        console.log(this.playerPos);
       }
     }
   }
   display(){
     fill(255);
     noStroke();
-    rectMode(CENTER)
+    rectMode(CENTER);
     rect(this.playerPos.x, this.playerPos.y, this.width, this.height);
   }
 }
@@ -100,7 +96,7 @@ class GC {
   }
   gameStart(){
     for (let i = 1; i < 3; i++) {
-     players.push(new Player(i, 20, height / 6)) 
+     players.push(new Player(i, 20, height / 6));
     }
     
     players[0].playerPos.add(0 + players[0].width * 2, height / 2);
@@ -113,40 +109,34 @@ class GC {
     players[0].n = 83;
    
     for (let i = 1; i < 1+ballMax; i++) {
-      ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
-      console.log("Ball #"+i,"has spawned")
-     }
-
+      ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+      console.log("Ball #" + i, "has spawned")
+    }
   }
-scoreSystem(){
 
-  for(let i = 0; i < ball.length; i++) {
-    if(ball[i].ballPos.x < 0-ball[i].r*2){
-
-     
-      ball.splice(i-1,1)
-      p2Score = p2Score + 1
-      console.log("Left removed")
-      if(ball.length < ballMax){
-      ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
-    }}
-
-    if(ball[i].ballPos.x > width+ball[i].r*2){
-     
-      ball.splice(i-1,1)
-      p1Score = p1Score + 1
-      console.log("Right gone")
-      if(ball.length < ballMax){
-    ball.push(new Ball(width / 2, height / 2, 13, random([-4, 4]),random(-3, 3))); 
-    
-  }
+  scoreSystem(){
+    for(let i = 0; i < ball.length; i++) {
+      if(ball[i].ballPos.x < 0 - ball[i].r * 2){
+        ball.splice(i - 1, 1)
+        p2Score = p2Score + 1
+        console.log("Left removed")
   
+        if(ball.length < ballMax){
+          ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+        }
+      } 
+    }
+      if(ball[i].ballPos.x > width + ball[i].r * 2){
+        ball.splice(i - 1, 1)
+        p1Score = p1Score + 1
+        console.log("Right gone")
+        if(ball.length < ballMax){
+          ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+        }
+      } 
+  }
+}
 
-
-}
-}
-}
-}}
 
 class Ball{
   constructor(x, y, r, fartX, fartY){
