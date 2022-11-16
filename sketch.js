@@ -125,7 +125,7 @@ class GC {
           ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
         }
       } 
-    }
+    
       if(ball[i].ballPos.x > width + ball[i].r * 2){
         ball.splice(i - 1, 1)
         p1Score = p1Score + 1
@@ -134,9 +134,9 @@ class GC {
           ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
         }
       } 
+    }
   }
 }
-
 
 class Ball{
   constructor(x, y, r, fartX, fartY){
