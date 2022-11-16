@@ -5,7 +5,7 @@ let gameController;
 let ballMax = 1;
 let p1Score = 0;
 let p2Score = 0;
-
+let reflectArrayRandom = [1.27, -0.24, -0.01, -2.76, -2.31, 0.34, 2.22, -2.54, -0.64, -0.92, 2.31, -0.02, -2.11, -0.15, 1.07, 1.54, 1.75, 2.29, 1.04, 2.68, 0.44, -1.19, -1.63, 0.52, 1.48, 2.10, 1.61, -0.15, -1.72, 2.89, 2.42, -2.15, -1.63, -2.87, -1.57, 0.33, 1.99, -0.56, -2.67, 1.98, -0.34, -1.06, 0.56, -2.85, 1.66, 1.08, -1.91, 2.35, 0.85, 2.51]
 
 function setup() {
   cnv = createCanvas(window.innerWidth / 1.5, window.innerHeight);
@@ -142,7 +142,11 @@ class GC {
      /* ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
       console.log("Ball #"+i,"has spawned")*/
      }
-     
+     textAlign(CENTER);
+     textSize(60)
+     textStyle(BOLD)
+     text(p1Score, (width / 2) - 100, 60)
+     text(p2Score, (width / 2) + 100, 60)
   }
 
   
@@ -151,6 +155,7 @@ class GC {
     
       if(ball[0].ballPos.x <= players[0].playerPos.x + players[0].width && ball[0].ballPos.x >= players[0].playerPos.x - players[0].width) {
         ball[0].ballFart.x *= -1;
+        ball[0].ballFart.y += random(reflectArrayRandom)
       }
     }
   
@@ -158,6 +163,7 @@ class GC {
       
       if(ball[0].ballPos.x >= players[1].playerPos.x - players[1].width && players[1].width && ball[0].ballPos.x <= players[1].playerPos.x + players[1].width) {
         ball[0].ballFart.x *= -1; 
+        ball[0].ballFart.y += random(reflectArrayRandom)
       }
     }
   }
