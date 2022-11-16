@@ -70,14 +70,14 @@ class Player {
   move(){
     if(this.playerPos.y >= 0 + this.height / 2){
       if(keyIsDown(this.o)){
-        this.playerPos.add(0, -5);
+        this.playerPos.add(0, -6);
         console.log(this.playerPos)
       }
     }
     
     if(this.playerPos.y <= window.innerHeight - this.height / 2){
       if(keyIsDown(this.n)){
-        this.playerPos.add(0, 5);
+        this.playerPos.add(0, 6);
         //console.log(this.playerPos)
       }
     }
@@ -153,7 +153,7 @@ class GC {
   collisionSpiller(){
     if(ball[0].ballPos.y <= players[0].playerPos.y + (players[0].height / 2) && ball[0].ballPos.y >= players[0].playerPos.y - (players[0].height / 2)) {
     
-      if(ball[0].ballPos.x <= players[0].playerPos.x + players[0].width && ball[0].ballPos.x >= players[0].playerPos.x - players[0].width) {
+      if(ball[0].ballPos.x <= players[0].playerPos.x + players[0].width && ball[0].ballPos.x >= players[0].playerPos.x) {
         ball[0].ballFart.x *= -1;
         ball[0].ballFart.y += random(reflectArrayRandom)
       }
@@ -161,7 +161,7 @@ class GC {
   
     if(ball[0].ballPos.y <= players[1].playerPos.y + (players[1].height / 2) && ball[0].ballPos.y >= players[1].playerPos.y - (players[1].height / 2)) { 
       
-      if(ball[0].ballPos.x >= players[1].playerPos.x - players[1].width && players[1].width && ball[0].ballPos.x <= players[1].playerPos.x + players[1].width) {
+      if(ball[0].ballPos.x >= players[1].playerPos.x - players[1].width && players[1].width && ball[0].ballPos.x <= players[1].playerPos.x) {
         ball[0].ballFart.x *= -1; 
         ball[0].ballFart.y += random(reflectArrayRandom)
       }
