@@ -11,8 +11,8 @@ function setup() {
   cnv = createCanvas(window.innerWidth / 1.5, window.innerHeight);
   //centerCanvas();
   background(0);
-  
-
+  ballXSpeed = width / 142.2
+  //console.log(ballXSpeed);
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
@@ -125,7 +125,7 @@ class GC {
         console.log("Left removed");
   
         if(ball.length < ballMax){
-          ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+          ball.push(new Ball(width / 2, height / 2, 13, random([-ballXSpeed, ballXSpeed]), random(-3, 3))); 
         }
       } 
     
@@ -135,7 +135,7 @@ class GC {
         console.log("Right gone");
 
         if(ball.length < ballMax){
-          ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+          ball.push(new Ball(width / 2, height / 2, 13, random([-ballXSpeed, ballXSpeed]), random(-3, 3))); 
         }
       } 
 
