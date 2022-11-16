@@ -3,7 +3,8 @@ let players = [];
 let ball = [];
 let gameController;
 let ballMax = 1;
-
+let p1Score = 0;
+let p2Score = 0;
 
 
 function setup() {
@@ -19,7 +20,7 @@ function setup() {
   gameController = new GC()
   gameController.gameStart()
 
-  noCursor()
+  noCursor();
 
 
   
@@ -50,13 +51,11 @@ function draw() {
       players[i].display();
     }
   
+  gameController.collisionSpiller();
+  //gameController.scoreSystem();
   
 }
 
-
-function keyPressed(){
- 
-}
 
 class Player {
   constructor(name, width, height, x, y, o, n) {
@@ -112,6 +111,32 @@ class GC {
     players[0].n = 83;
    
     for (let i = 1; i < 1+ballMax; i++) {
+      ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
+      console.log("Ball #"+i,"has spawned")
+     }
+     
+  }
+  scoreSystem(){
+    for(let i = 0; i < ball.length; i++) {
+      if(ball[i].ballPos.x < 0 - ball[i].r * 2){
+        ball.splice(i - 1, 1)
+        p2Score = p2Score + 1
+        console.log("Left removed")
+  
+        if(ball.length < ballMax){
+          ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+        }
+      } 
+    
+      if(ball[i].ballPos.x > width + ball[i].r * 2){
+        ball.splice(i - 1, 1)
+        p1Score = p1Score + 1
+        console.log("Right gone")
+        if(ball.length < ballMax){
+          ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
+        }
+      } 
+
       ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
       console.log("Ball #"+i,"has spawned")
      }
