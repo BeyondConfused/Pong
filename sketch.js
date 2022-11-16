@@ -146,7 +146,7 @@ scoreSystem(){
 }
 }
 }
-}
+}}
 
 class Ball{
   constructor(x, y, r, fartX, fartY){
