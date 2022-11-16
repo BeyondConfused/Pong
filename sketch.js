@@ -44,7 +44,7 @@ function draw() {
     ball[i].move();
     ball[i].bounce();
     }
-    gameController.collisionSpiller();
+    //gameController.collisionSpiller();
 
   for(let i = 0; i < players.length; i++) {
       players[i].move();
@@ -52,7 +52,7 @@ function draw() {
     }
   
   gameController.collisionSpiller();
-  //gameController.scoreSystem();
+  gameController.scoreSystem();
   
 }
 
@@ -78,7 +78,7 @@ class Player {
     if(this.playerPos.y <= window.innerHeight - this.height / 2){
       if(keyIsDown(this.n)){
         this.playerPos.add(0, 5);
-        console.log(this.playerPos)
+        //console.log(this.playerPos)
       }
     }
   }
@@ -117,11 +117,12 @@ class GC {
      
   }
   scoreSystem(){
+
     for(let i = 0; i < ball.length; i++) {
       if(ball[i].ballPos.x < 0 - ball[i].r * 2){
-        ball.splice(i - 1, 1)
-        p2Score = p2Score + 1
-        console.log("Left removed")
+        ball.splice(i - 1, 1);
+        p2Score = p2Score + 1;
+        console.log("Left removed");
   
         if(ball.length < ballMax){
           ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
@@ -129,16 +130,17 @@ class GC {
       } 
     
       if(ball[i].ballPos.x > width + ball[i].r * 2){
-        ball.splice(i - 1, 1)
-        p1Score = p1Score + 1
-        console.log("Right gone")
+        ball.splice(i - 1, 1);
+        p1Score = p1Score + 1;
+        console.log("Right gone");
+
         if(ball.length < ballMax){
           ball.push(new Ball(width / 2, height / 2, 13, random([-6, 6]), random(-3, 3))); 
         }
       } 
 
-      ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
-      console.log("Ball #"+i,"has spawned")
+     /* ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
+      console.log("Ball #"+i,"has spawned")*/
      }
      
   }
