@@ -111,7 +111,7 @@ class GC {
     players[0].n = 83;
    
     for (let i = 1; i < 1+ballMax; i++) {
-      ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
+      ball.push(new Ball(width / 2, height / 2, 13, random([-ballXSpeed, ballXSpeed]),random(-3, 3))); 
       console.log("Ball #"+i,"has spawned")
      }
      
