@@ -1,3 +1,4 @@
+//Globale variabler
 var cnv;
 let players = [];
 let ball = [];
@@ -29,30 +30,30 @@ function setup() {
 function draw() {
   background(0);
   midterLinje();
-
+  // For-loop som aktivere bevægelse og display for alle bolde i arrayet
   for(let i = 0; i < ball.length; i++) {
     ball[i].display();
     ball[i].move();
     ball[i].bounce();
     }
-    //gameController.collisionSpiller();
-
+    
+  //For-loop som aktivere bevægelse og display for alle bolde i arrayet
   for(let i = 0; i < players.length; i++) {
       players[i].move();
       players[i].display();
     }
-  
+  //Aktiverer gameController klassens kollision og scoresystem funktioner i draw()
   gameController.collisionSpiller();
   gameController.scoreSystem();
   
 }
-
+//Funktion til at tegne den stiplede linje
 function midterLinje() {
   stroke(255);
   strokeWeight(width / 150)
-
+  //Hvid line
   line(width / 2, 0, width / 2, height);
-
+  //Sorte linjer på langs
   for(let i = 0; i <= 29; i++){
     stroke(0);
     strokeWeight(height / 55);
@@ -60,22 +61,26 @@ function midterLinje() {
   }
     
 }
-
+//Spiller klasse
 class Player {
+  //Constructor med spillerens parametre
   constructor(name, width, height, x, y, o, n) {
     this.name = name;
     this.width = width;
     this.height = height;
     this.playerPos = new p5.Vector(x, y);
+    //Variabler til input
     this.o = o;
     this.n = n;
+    //Udskriver at spilleren er skabt til debugging
     console.log("Player", name + " spawned")
   }
+  //Funktion som gør at spillere kan bevæge sig vha. et if statement som tilfører til spillerenes y værdi
   move(){
     if(this.playerPos.y >= 0 + this.height / 2){
       if(keyIsDown(this.o)){
         this.playerPos.add(0, -6);
-        console.log(this.playerPos)
+        //console.log(this.playerPos)
       }
     }
     
@@ -86,6 +91,7 @@ class Player {
       }
     }
   }
+  // Funktion til at vise spillerne
   display(){
     fill(255);
     noStroke();
@@ -93,11 +99,13 @@ class Player {
     rect(this.playerPos.x, this.playerPos.y, this.width, this.height);
   }
 }
-
+// GameController klasse. Denne klasse håndtere selve spillet
 class GC {
   constructor() {
   }
+  // Startup funktion som opretter spillere og bolde ved spillets start
   gameStart(){
+    // For-loop som opretter 2 spillere
     for (let i = 1; i < 3; i++) {
      players.push(new Player(i, 20, height / 6)) 
     }
@@ -112,21 +120,28 @@ class GC {
     //Venstre spiller
     players[0].o = 87;
     players[0].n = 83;
-   
-    for (let i = 1; i < 1+ballMax; i++) {
+    //For loop som opretter et antal bolde ud fra ballMax variablen
+    for (let i = 1; i < 1 + ballMax; i++) {
       ball.push(new Ball(width / 2, height / 2, 13, random([-ballXSpeed, ballXSpeed]),random(-3, 3))); 
-      console.log("Ball #"+i,"has spawned")
+      // Printer at en bold er oprettet samt nummer til debugging
+      console.log("Ball #"+ i, "has spawned")
      }
      
   }
+  //Funktion som håndterer point og scoringer i spillet
   scoreSystem(){
-
+    // For loop som gennemgår alle bolde i arrayets position
     for(let i = 0; i < ball.length; i++) {
+      //if-statement som tjekker om bolden er indenfor banen
       if(ball[i].ballPos.x < 0 - ball[i].r * 2){
+        //Hvis ikke bolden er inden for banen fjernes den specifikke bold
         ball.splice(i - 1, 1);
+        //Score tilføjes
         p2Score = p2Score + 1;
+        //Print til debugging
         console.log("Left removed");
-  
+        
+        //Samme som overfor blot modsat side
         if(ball.length < ballMax){
           ball.push(new Ball(width / 2, height / 2, 13, random([-ballXSpeed, ballXSpeed]), random(-3, 3))); 
         }
@@ -135,16 +150,14 @@ class GC {
       if(ball[i].ballPos.x > width + ball[i].r * 2){
         ball.splice(i - 1, 1);
         p1Score = p1Score + 1;
-        console.log("Right gone");
+        console.log("Right removed");
 
         if(ball.length < ballMax){
           ball.push(new Ball(width / 2, height / 2, 13, random([-ballXSpeed, ballXSpeed]), random(-3, 3))); 
         }
-      } 
-
-     /* ball.push(new Ball(width / 2, height / 2, 13, random([-7, 7]),random(-3, 3))); 
-      console.log("Ball #"+i,"has spawned")*/
+      }
      }
+     //Text til display af score
      textAlign(CENTER);
      textSize(60)
      textStyle(BOLD)
@@ -152,8 +165,9 @@ class GC {
      text(p2Score, (width / 2) + 100, 60)
   }
 
-  
+  //Funktion som håndtere kollision mellem bold og spillere
   collisionSpiller(){
+    //If-statement som tjekker om boldens er inden for spillerens bund og top i den ene side
     if(ball[0].ballPos.y <= players[0].playerPos.y + (players[0].height / 2) && ball[0].ballPos.y >= players[0].playerPos.y - (players[0].height / 2)) {
     
       if(ball[0].ballPos.x <= players[0].playerPos.x + players[0].width && ball[0].ballPos.x >= players[0].playerPos.x) {
@@ -161,7 +175,7 @@ class GC {
         ball[0].ballFart.y += random(reflectArrayRandom)
       }
     }
-  
+    //If-statement som tjekker om boldens er inden for spillerens bund og top i den anden side
     if(ball[0].ballPos.y <= players[1].playerPos.y + (players[1].height / 2) && ball[0].ballPos.y >= players[1].playerPos.y - (players[1].height / 2)) { 
       
       if(ball[0].ballPos.x >= players[1].playerPos.x - players[1].width && players[1].width && ball[0].ballPos.x <= players[1].playerPos.x) {
@@ -171,40 +185,29 @@ class GC {
     }
   }
 }
-
+//Bold klasse
 class Ball{
+  //constructor som indeholder position radius og hastighed
   constructor(x, y, r, fartX, fartY){
+    // Position og fart håndteres med vektore
     this.ballPos = new p5.Vector(x, y);
     this.ballFart = new p5.Vector(fartX, fartY);
     this.r = r;
   }
-
+//Funtkion som hårdterer bolden bevægelse afhængig af fart
 move(){
   this.ballPos.add(this.ballFart);
 }
-
+//Funktionen til tegner bolden
 display(){
   noStroke();
   fill(255);
   circle(this.ballPos.x, this.ballPos.y, 2 * this.r);
 
 }
-
+//Funktionen som håndtere collision med top og bund af banen
 bounce(){
-  //Collision med højre væg
-  /*
-  if (this.ballPos.x > width - this.r) {
-    this.ballPos.x = width - this.r;
-    this.ballFart.x *= -1;
-  }*/
-  
-  //Collision med venstre væg
-  /*
-  if (this.ballPos.x < this.r) {
-    this.ballPos.x = this.r;
-    this.ballFart.x *= -1;
-  }*/
-  
+  //Når der er collision omvendes boldens y-fart
   //Collision med top
   if (this.ballPos.y < this.r) {
     this.ballPos.y = this.r;
