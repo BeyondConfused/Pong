@@ -9,22 +9,20 @@ let reflectArrayRandom = [1.27, -0.24, -0.01, -2.76, -2.31, 0.34, 2.22, -2.54, -
 
 function setup() {
   cnv = createCanvas(window.innerWidth / 1.5, window.innerHeight);
-  //centerCanvas();
   background(0);
+  //Boldens fart afhænging af størrelsen på skærmen
   ballXSpeed = width / 142.2
-  //console.log(ballXSpeed);
+  //Canvas centreret på computerskærm
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
   cnv.position(x, y);
 
+  //Gamecontroller
   gameController = new GC()
   gameController.gameStart()
 
+  //Ingen musemarkør på canvas
   noCursor();
-
-
-  
-
 }
 
 function centerCanvas() {
