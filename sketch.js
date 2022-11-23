@@ -195,6 +195,7 @@ move(){
 }
 
 display(){
+  noStroke();
   fill(255);
   circle(this.ballPos.x, this.ballPos.y, 2 * this.r);
 
