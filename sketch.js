@@ -25,9 +25,6 @@ function setup() {
   noCursor();
 }
 
-function windowResized() {
-  centerCanvas();
-}
 
 function draw() {
   background(0);
@@ -220,6 +217,5 @@ bounce(){
 }
 
 }
-
 
 }
