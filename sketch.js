@@ -39,6 +39,8 @@ function windowResized() {
 
 function draw() {
   background(0);
+  midterLinje();
+
   for(let i = 0; i < ball.length; i++) {
     ball[i].display();
     ball[i].move();
@@ -56,6 +58,19 @@ function draw() {
   
 }
 
+function midterLinje() {
+  stroke(255);
+  strokeWeight(width / 150)
+
+  line(width / 2, 0, width / 2, height);
+
+  for(let i = 0; i <= 29; i++){
+    stroke(0);
+    strokeWeight(height / 55);
+    line(0, (height / 29) * i, width, (height / 29) * i);
+  }
+    
+}
 
 class Player {
   constructor(name, width, height, x, y, o, n) {
@@ -89,7 +104,6 @@ class Player {
     rect(this.playerPos.x, this.playerPos.y, this.width, this.height);
   }
 }
-
 
 class GC {
   constructor() {
